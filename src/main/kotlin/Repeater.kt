@@ -29,14 +29,15 @@ object Repeater : KotlinPlugin(
         .setPrettyPrinting()
         .create()
     val config = loadConfig()
-    private val groupHolders = HashMap<Group, GroupHolder>()
+    private val groupHolders = mutableMapOf<Group, GroupHolder>()
+        .withDefault { group -> GroupHolder(group) }
 
     override fun onEnable() {
         CommandManager.registerCommand(RepeaterConfigureCommand, false);
         GlobalEventChannel.subscribeGroupMessages(priority = EventPriority.LOW,
             listeners = {
                 always {
-                    getGroupHolder(group).onMessage(sender, message)
+                    groupHolders[group]!!.onMessage(sender, message)
                 }
             })
     }
@@ -53,12 +54,6 @@ object Repeater : KotlinPlugin(
 
     fun saveConfig() {
         configFile.writeText(configGson.toJson(config))
-    }
-
-    private fun getGroupHolder(group: Group): GroupHolder {
-        if (group !in groupHolders)
-            groupHolders[group] = GroupHolder(group)
-        return groupHolders[group]!!
     }
 
 }
