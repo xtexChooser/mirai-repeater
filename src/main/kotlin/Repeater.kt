@@ -3,10 +3,11 @@ package com.xtex.repeater
 import com.google.gson.GsonBuilder
 import com.xtex.repeater.command.RepeaterConfigureCommand
 import com.xtex.repeater.config.RepeaterConfig
+import com.xtex.repeater.group.GroupHolder
 import net.mamoe.mirai.console.command.CommandManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
-import net.mamoe.mirai.contact.nameCardOrNick
+import net.mamoe.mirai.contact.Group
 import net.mamoe.mirai.event.EventPriority
 import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.subscribeGroupMessages
@@ -28,31 +29,14 @@ object Repeater : KotlinPlugin(
         .setPrettyPrinting()
         .create()
     val config = loadConfig()
-    private var lastMessage = ""
-    private var lastMessageCount = 0
+    private val groupHolders = HashMap<Group, GroupHolder>()
 
     override fun onEnable() {
         CommandManager.registerCommand(RepeaterConfigureCommand, false);
         GlobalEventChannel.subscribeGroupMessages(priority = EventPriority.LOW,
             listeners = {
                 always {
-                    // Global repeater
-                    if (config.repeaterState) {
-                        group.sendMessage("${sender.nameCardOrNick}: ${message.contentToString()}")
-                    }
-                    // Chain repeater
-                    val thisMessage = message.contentToString()
-                    if (lastMessage == thisMessage) {
-                        lastMessageCount++
-                        if (lastMessageCount in config.chainPlaces)
-                            group.sendMessage(message)
-                        // Chain killer
-                        if (lastMessageCount == config.killChainAt)
-                            group.sendMessage(config.killChainWith)
-                    } else {
-                        lastMessage = thisMessage
-                        lastMessageCount = 1
-                    }
+                    getGroupHolder(group).onMessage(sender, message)
                 }
             })
     }
@@ -69,6 +53,12 @@ object Repeater : KotlinPlugin(
 
     fun saveConfig() {
         configFile.writeText(configGson.toJson(config))
+    }
+
+    private fun getGroupHolder(group: Group): GroupHolder {
+        if (group !in groupHolders)
+            groupHolders[group] = GroupHolder(group)
+        return groupHolders[group]!!
     }
 
 }
