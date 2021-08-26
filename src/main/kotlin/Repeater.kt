@@ -1,8 +1,7 @@
 package com.xtex.repeater
 
-import com.google.gson.GsonBuilder
 import com.xtex.repeater.command.RepeaterConfigureCommand
-import com.xtex.repeater.config.RepeaterConfig
+import com.xtex.repeater.config.RepeaterGeneralConfig
 import com.xtex.repeater.group.GroupHolder
 import net.mamoe.mirai.console.command.CommandManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
@@ -22,17 +21,11 @@ object Repeater : KotlinPlugin(
     }
 ) {
 
-    private val configFile = resolveConfigFile("Configuration.json")
-    private val configGson = GsonBuilder()
-        .serializeNulls()
-        .setLenient()
-        .setPrettyPrinting()
-        .create()
-    val config = loadConfig()
-    private val groupHolders = mutableMapOf<Group, GroupHolder>()
-        .withDefault { group -> GroupHolder(group) }
+    val groupHolders = mutableMapOf<Group, GroupHolder>()
+        .withDefault { group -> GroupHolder(group, RepeaterGeneralConfig.getConfigForGroup(group.id)) }
 
     override fun onEnable() {
+        RepeaterGeneralConfig.reload()
         CommandManager.registerCommand(RepeaterConfigureCommand, false);
         GlobalEventChannel.subscribeGroupMessages(priority = EventPriority.LOW,
             listeners = {
@@ -40,20 +33,6 @@ object Repeater : KotlinPlugin(
                     groupHolders[group]!!.onMessage(sender, message)
                 }
             })
-    }
-
-    override fun onDisable() {
-        saveConfig()
-    }
-
-    private fun loadConfig(): RepeaterConfig {
-        if (!configFile.exists())
-            return RepeaterConfig()
-        return configGson.fromJson(configFile.readText(), RepeaterConfig::class.java)
-    }
-
-    fun saveConfig() {
-        configFile.writeText(configGson.toJson(config))
     }
 
 }

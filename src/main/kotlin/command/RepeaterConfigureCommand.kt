@@ -9,7 +9,7 @@ object RepeaterConfigureCommand : CompositeCommand(
     secondaryNames = arrayOf("rep_conf", "repconf"), description = "配置复读机"
 ) {
 
-    @SubCommand("repstart")
+    /*@SubCommand("repstart")
     @Description("开启全程复读")
     suspend fun CommandSender.repeaterStart() {
         Repeater.config.repeaterState = true
@@ -105,6 +105,6 @@ object RepeaterConfigureCommand : CompositeCommand(
         Repeater.config.killChainWith = with
         Repeater.saveConfig()
         sendMessage("复读打断已设置通过 ${Repeater.config.killChainWith}")
-    }
+    }*/
 
 }
