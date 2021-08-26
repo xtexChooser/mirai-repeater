@@ -9,18 +9,20 @@ import net.mamoe.mirai.message.data.MessageChain
 data class GroupHolder(
     val group: Group,
     val config: RepeaterScopedConfig,
-    var lastMessage: String = "",
+    @Suppress("SpellCheckingInspection")
+    var lastMessageAsMiraiCode: String = "",
     var lastMessageCount: Int = 0
 ) {
 
     suspend fun onMessage(sender: Member, message: MessageChain) {
         // Global repeater
         if (config.repeaterState!!) {
+            // @TODO: Check message type for image/voice message
             group.sendMessage("${sender.nameCardOrNick}: ${message.contentToString()}")
         }
         // Chain repeater
-        val thisMessage = message.contentToString()
-        if (lastMessage == thisMessage) {
+        val thisMessage = message.serializeToMiraiCode()
+        if (lastMessageAsMiraiCode == thisMessage) {
             lastMessageCount++
             if (lastMessageCount in config.chainPlaces)
                 group.sendMessage(message)
@@ -28,7 +30,7 @@ data class GroupHolder(
             if (lastMessageCount == config.killChainAt)
                 group.sendMessage(config.killChainWith!!)
         } else {
-            lastMessage = thisMessage
+            lastMessageAsMiraiCode = thisMessage
             lastMessageCount = 1
         }
     }
