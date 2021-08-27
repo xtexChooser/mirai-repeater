@@ -27,7 +27,7 @@ data class GroupHolder(
             if (lastMessageCount in config.chainPlaces)
                 group.sendMessage(message)
             // Chain killer
-            if (lastMessageCount == config.killChainAt)
+            if (lastMessageCount == config.killChainAt && config.killChainWith != null)
                 group.sendMessage(config.killChainWith!!)
         } else {
             lastMessageAsMiraiCode = thisMessage
