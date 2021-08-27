@@ -39,7 +39,7 @@ jobs:
 
       - name: Upload Release
         uses: fnkr/github-action-ghr@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'release'
         env:
           GHR_PATH: build/libs
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
