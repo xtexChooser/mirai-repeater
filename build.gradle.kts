@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.xtex"
-version = "1.2"
+version = "1.4"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public")
