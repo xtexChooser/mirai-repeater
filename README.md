@@ -10,36 +10,35 @@
 
 所有命令以`repeater_configure`（或`rep_conf`/`repconf`）开头
 
-- /repeater_configure chainplaceadd <位置: Int>  # 添加跟风复读位置
+- /repeater_configure repstart <配置上下文>   # 开启全程复读
+- /repeater_configure repstop <配置上下文>   # 关闭全程复读
+- /repeater_configure repunset <配置上下文>   # 重置全程复读开关状态
+- /repeater_configure chainstart <配置上下文>   # 开启跟风复读
+- /repeater_configure chainstop <配置上下文>   # 关闭跟风复读
+- /repeater_configure chainunset <配置上下文>   # 重置跟风复读开关状态
+- /repeater_configure chainplaces <配置上下文>   # 列出所有跟风复读位置
 
-- /repeater_configure chainplaceremove <位置: Int>  # 移除跟风复读位置
-
-- /repeater_configure chainplaces  # 列出所有跟风复读位置
-
-- /repeater_configure chainstart  # 开启跟风复读
-
-- /repeater_configure chainstop  # 关闭跟风复读
-
-- /repeater_configure killchainat  # 查看复读打断位置
-
-- /repeater_configure killchainat <位置: Int>  # 设置复读打断位置
-
-- /repeater_configure killchainstart  # 开启复读打断
-
-- /repeater_configure killchainstop  # 关闭复读打断
-
-- /repeater_configure killchainwith  # 查看复读打断方式
-
-- /repeater_configure killchainwith <语句: String>  # 设置复读打断方式
-
-- /repeater_configure repstart  # 开启全程复读
-
-- /repeater_configure repstop  # 关闭全程复读
+- /repeater_configure chainplaceadd <配置上下文> <位置: Int>  # 添加跟风复读位置
+- /repeater_configure chainplaceremove <配置上下文>  <位置: Int>  # 移除跟风复读位置
+- /repeater_configure killchainstart <配置上下文>   # 开启复读打断
+- /repeater_configure killchainstop <配置上下文>   # 关闭复读打断
+- /repeater_configure killchainunset <配置上下文>   # 重置复读打断开关状态
+- /repeater_configure killchainat <配置上下文>   # 查看复读打断位置
+- /repeater_configure killchainat <配置上下文>  <位置: Int>  # 设置复读打断位置
+- /repeater_configure killchainatunset <配置上下文>   # 重置复读打断位置
+- /repeater_configure killchainwith <配置上下文>   # 查看复读打断方式
+- /repeater_configure killchainwith <配置上下文>  <语句: String>  # 设置复读打断方式
+- /repeater_configure killchainwithunset <配置上下文>   重置复读打断方式
 
 ## Tip
 
 - 仅对群聊有效
+
 - 对Bot自身发出的消息无效，计数器也不会计算
+
+- 所有参数重置后会进入`UNSET`状态并使用全局状态，跟随全局状态变更
+
+  全局参数重置后，
 
 ## LICENSE
 
