@@ -30,9 +30,15 @@ object Repeater : KotlinPlugin(
         GlobalEventChannel.subscribeGroupMessages(priority = EventPriority.LOW,
             listeners = {
                 always {
-                    groupHolders[group]!!.onMessage(sender, message)
+                    getGroupHolder(group).onMessage(sender, message)
                 }
             })
+    }
+
+    private fun getGroupHolder(group: Group): GroupHolder {
+        if(group in groupHolders || groupHolders[group] == null)
+            groupHolders[group] = GroupHolder(group, RepeaterGeneralConfig.getConfigForGroup(group.id))
+        return groupHolders[group]!!
     }
 
 }

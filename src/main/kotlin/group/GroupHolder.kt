@@ -17,7 +17,7 @@ data class GroupHolder(
     suspend fun onMessage(sender: Member, message: MessageChain) {
         // Global repeater
         if (config.repeaterState!!) {
-            // @TODO: Check message type for image/voice message
+            // @TODO: Check message type for image/voice message(request for method)
             group.sendMessage("${sender.nameCardOrNick}: ${message.contentToString()}")
         }
         // Chain repeater
