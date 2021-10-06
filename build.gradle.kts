@@ -25,5 +25,4 @@ tasks.jar.configure {
 }
 
 tasks.shadowJar.configure {
-    configurations = mutableListOf(project.configurations.runtimeClasspath.get())
 }
