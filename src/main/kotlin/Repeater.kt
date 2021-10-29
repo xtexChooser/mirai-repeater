@@ -36,7 +36,7 @@ object Repeater : KotlinPlugin(
     }
 
     private fun getGroupHolder(group: Group): GroupHolder {
-        if(group in groupHolders || groupHolders[group] == null)
+        if(group !in groupHolders || groupHolders[group] == null)
             groupHolders[group] = GroupHolder(group, RepeaterGeneralConfig.getConfigForGroup(group.id))
         return groupHolders[group]!!
     }
