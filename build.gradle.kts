@@ -15,7 +15,7 @@ repositories {
 dependencies {
     compileOnly("net.mamoe:mirai-core:2.8.3")
     compileOnly("net.mamoe:mirai-core-api:2.8.3")
-    compileOnly("net.mamoe:mirai-console:2.8.2")
+    compileOnly("net.mamoe:mirai-console:2.8.3")
     implementation("com.google.code.gson:gson:2.8.9")
 }
 
