@@ -28,12 +28,12 @@ jobs:
           ./gradlew build
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v2.2.4
+        uses: actions/upload-artifact@v2.3.0
         with:
           path: build/libs
 
       - name: Upload Build Space
-        uses: actions/upload-artifact@v2.2.4
+        uses: actions/upload-artifact@v2.3.0
         with:
           name: buildspace
           path: ./
