@@ -22,7 +22,6 @@ object Repeater : KotlinPlugin(
 ) {
 
     val groupHolders = mutableMapOf<Group, GroupHolder>()
-        .withDefault { group -> GroupHolder(group, RepeaterGeneralConfig.getConfigForGroup(group.id)) }
 
     override fun onEnable() {
         RepeaterGeneralConfig.reload()
