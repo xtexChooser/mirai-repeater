@@ -1,10 +1,10 @@
 package com.xtex.repeater.config
 
+import net.mamoe.mirai.console.data.AutoSavePluginConfig
 import net.mamoe.mirai.console.data.AutoSavePluginData
 import net.mamoe.mirai.console.data.value
 
-@Suppress("MemberVisibilityCanBePrivate")
-object RepeaterGeneralConfig : AutoSavePluginData("General") {
+object RepeaterGeneralConfig : AutoSavePluginConfig("General") {
 
     val root by value(RepeaterScopedConfig.DEFAULT_ROOT)
 
