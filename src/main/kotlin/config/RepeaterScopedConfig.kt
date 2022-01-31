@@ -22,9 +22,7 @@ data class RepeaterScopedConfig(
             killChainWith = "打断施法"
         )
 
-        private fun mixEnableState(a: Boolean?, b: Boolean?): Boolean {
-            return !(a == false || b == false)
-        }
+        private fun mixEnableState(local: Boolean?, global: Boolean?): Boolean = local ?: global ?: false
 
     }
 
