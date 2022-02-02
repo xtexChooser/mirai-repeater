@@ -15,11 +15,6 @@ data class OptionalInt(
 
     }
 
-    fun getOrDefault(default: Int): Int {
-        return if (value == null)
-            default
-        else
-            value!!
-    }
+    fun getOrDefault(default: Int) = value ?: default
 
 }

@@ -15,11 +15,6 @@ data class OptionalString(
 
     }
 
-    fun getOrDefault(default: String): String {
-        return if (value == null)
-            default
-        else
-            value!!
-    }
+    fun getOrDefault(default: String) = value ?: default
 
 }

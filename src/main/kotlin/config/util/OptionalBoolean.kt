@@ -17,11 +17,6 @@ data class OptionalBoolean(
 
     }
 
-    fun getOrDefault(default: Boolean): Boolean {
-        return if (value == null)
-            default
-        else
-            value!!
-    }
+    fun getOrDefault(default: Boolean) = value ?: default
 
 }
