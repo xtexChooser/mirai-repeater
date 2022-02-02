@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.10'
 
     id 'net.mamoe.mirai-console' version '2.10.0'
+    id 'maven-publish'
 }
 
 group 'com.xtex'
@@ -17,4 +18,18 @@ dependencies {
 
 jar {
     manifest.attributes 'Implementation-Version': project.version
+}
+
+java {
+    withSourcesJar()
+}
+
+publishing {
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+
 }
