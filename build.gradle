@@ -1,0 +1,22 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.21'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.21'
+}
+
+group 'com.xtex'
+version '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly('net.mamoe:mirai-core:2.10.0')
+    compileOnly('net.mamoe:mirai-core-api:2.10.0')
+    compileOnly('net.mamoe:mirai-console:2.10.0')
+    implementation('com.google.code.gson:gson:2.8.9')
+}
+
+jar {
+    manifest.attributes 'Implementation-Version': project.version
+}
