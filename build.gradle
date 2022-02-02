@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.xtex'
-version '1.10'
+version '1.11'
 
 repositories {
     mavenCentral()
@@ -16,7 +16,7 @@ repositories {
 dependencies {
 }
 
-jar {
+tasks.withType(org.gradle.jvm.tasks.Jar).configureEach {
     manifest.attributes 'Implementation-Version': project.version
 }
 
