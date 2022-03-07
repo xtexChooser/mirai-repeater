@@ -29,12 +29,12 @@ jobs:
           cp build/mirai/* build/libs
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v2.3.1
+        uses: actions/upload-artifact@v3
         with:
           path: build/libs
 
       - name: Upload Build Space
-        uses: actions/upload-artifact@v2.3.1
+        uses: actions/upload-artifact@v3
         with:
           name: buildspace
           path: ./
